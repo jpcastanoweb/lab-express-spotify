@@ -48,7 +48,7 @@ app.get("/artist-search", (req, res) => {
 })
 
 app.get("/albums/:artistId", (req, res) => {
-  const { artistId } = req.params
+  const artistId = req.params.artistId
 
   spotifyApi
     .getArtistAlbums(artistId)
