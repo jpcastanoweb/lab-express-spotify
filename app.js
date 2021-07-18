@@ -11,6 +11,7 @@ const app = express()
 app.set("view engine", "hbs")
 app.set("views", __dirname + "/views")
 app.use(express.static(__dirname + "/public"))
+hbs.registerPartials(__dirname + "/views/partials")
 
 // setting the spotify-api goes here:
 const spotifyApi = new SpotifyWebApi({
@@ -39,6 +40,7 @@ app.get("/artist-search", (req, res) => {
       //   console.log("the items: ", data.body.artists.items)
 
       res.render("artist-search-results", {
+        query: req.query.artist,
         results: data.body.artists.items,
       })
     })
@@ -49,23 +51,31 @@ app.get("/artist-search", (req, res) => {
 
 app.get("/albums/:artistId", (req, res) => {
   const artistId = req.params.artistId
-
   spotifyApi
-    .getArtistAlbums(artistId)
+    .getArtist(artistId)
     .then((data) => {
-      console.log("The artist albums: ", data.body)
-      res.render("albums", {
-        albums: data.body.items,
-      })
+      console.log(data)
+      const artistName = data.body.name
+      spotifyApi
+        .getArtistAlbums(artistId)
+        .then((data) => {
+          console.log("The artist albums: ", data)
+          res.render("albums", {
+            albums: data.body.items,
+            name: artistName,
+          })
+        })
+        .catch((e) => console.log(e))
     })
     .catch((e) => console.log(e))
 })
 
 app.get("/tracks/:albumId", (req, res) => {
   const { albumId } = req.params
+  console.log(albumId)
 
   spotifyApi
-    .getAlbumTracks(albumId)
+    .getAlbumTracks("5EdGgMlsJ7bv8IUqkaaPZN")
     .then((data) => {
       console.log("The album tracks: ", data.body)
       res.render("tracks", {

@@ -1,7 +1,9 @@
-Resultados
 
-{{#each results}}
-    <h3>{{this.name}}</h3>
-    <img src="{{this.images.0.url}}" alt="">
-    <a href="/albums/{{this.id}}">View Albums</a>
-{{/each}}
+<div class="heading">
+    <h1>Search Results For: "{{this.query}}"</h1>
+</div>
+<div id="results-container">
+    {{#each results}}
+        {{> pieceInfo this}}
+    {{/each}}
+</div>
