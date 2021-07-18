@@ -31,6 +31,7 @@ body {
     flex-wrap: wrap;
 }
 
+
 /* 
     CLASSES
 */
@@ -118,4 +119,28 @@ body {
     color: white;
     padding: 3px;
     border-radius: 3px;
+}
+
+.tracks-header {
+    /* width: 100%; */
+    height: 80px;
+    background-color: rgb(59, 57, 57);
+    color: rgb(173, 173, 173);
+    padding: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tracks-h2 {
+    margin-right: 100px;
+}
+
+.track-item {
+    /* width: 100%; */
+    display: flex;
+    margin: 5px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
